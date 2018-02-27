@@ -33,7 +33,7 @@ async def on_ready():
 
 @client.command(pass_context=True)
 async def dice(ctx, n_dices=4):
-	"""Lanza un número de dados definido en el comando."""
+	"""Sends a predefined number of dices."""
 	if isinstance(n_dices, int):
 	    await client.say(str(ctx.message.author)+" lanza los dados y saca...")
 	    result = calc_dices(n_dices)
@@ -45,24 +45,23 @@ async def dice(ctx, n_dices=4):
 
 @client.command(pass_context=True)
 async def map(ctx):
-	""" Envía una imagen del mapa."""
+	""" Sends the map image."""
 	await client.say("Still working on this command.")
 
 @client.command(pass_context=True)
 async def my_character(ctx):
-	"""Envía la imagen del personaje del usuario que envía el comando."""
+	"""Sends the character picture of the user that has sent the command."""
 	pic_dir = "characters/"+str(ctx.message.author)+".png"
 	await client.send_file(ctx.message.channel, pic_dir)
 
 @client.command(pass_context=True)
 async def character(ctx, user):
-	"""Envía la imagen del personaje del usuario especificado. (Para obtener el usuario deseado
-	utiliza el identificador que aparece cuando lanza un dado)"""
+	"""Sends the character picture of the user specified. (To obtain the user identifier
+	look at the message sent when he uses the dice command)"""
 	await client.say("Still working on this command.")
 
 @client.command(pass_context=True)
 async def clean(ctx):
 	""" Cleans every bot message from the channel. """
-	await client.purge_from(ctx.message.channel, limit=200, check=lambda m: m.author == client.user)
-	await client.purge_from(ctx.message.channel, limit=200, check=lambda m: m.content.startswith(prefix))
+	await client.purge_from(ctx.message.channel, limit=200, check=lambda m: (m.author == client.user) or m.content.startswith(prefix))
 client.run('NDE1OTc4MzMwMzMyODU2MzIw.DW9xmA.DHxYPGsU9FEScFTVkF_zEKLtwPM')
