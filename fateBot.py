@@ -8,7 +8,7 @@ import random
 import numpy as np
 
 prefix="!"
-client = Bot(description="Fate bot for discord. Made by SowlJBA", command_prefix=prefix, pm_help = False)
+client = Bot(description="Fate bot for discord.", command_prefix=prefix, pm_help = False)
 
 def calc_dices(n):
     results = list(np.random.choice(["+","-"," "],n))
@@ -28,20 +28,20 @@ def dicesToEmojis(dices):
 
 @client.event
 async def on_ready():
-    print('Logged in as '+client.user.name+' (ID:'+client.user.id+') | Connected to '+str(len(client.servers))+' servers | Connected to '+str(len(set(client.get_all_members())))+' users')
+    print(f'Logged in as {client.user.name} (ID:{client.user.id}) | Connected to {str(len(client.servers))} servers | Connected to {str(len(set(client.get_all_members())))} users')
     return await client.change_presence(game=discord.Game(name='Hosting Fate Game'))
 
 @client.command(pass_context=True)
 async def dice(ctx, n_dices=4):
 	"""Sends a predefined number of dices."""
 	if isinstance(n_dices, int):
-	    await client.say(str(ctx.message.author)+" lanza los dados y saca...")
+	    await client.say(f"{str(ctx.message.author)} throws the dices and gets...")
 	    result = calc_dices(n_dices)
 	    emojis = dicesToEmojis(result[0])
-	    await client.say("Dados... "+emojis)
-	    await client.say("Resultado total: "+str(result[1]))
+	    await client.say(f"Dices... {emojis}")
+	    await client.say(f"Total result: {str(result[1])}")
 	else:
-		await client.say("Por favor, no seas malo con el programador, mete un número entero de dados.")
+		await client.say("Please enter an integer number of dices.")
 
 @client.command(pass_context=True)
 async def map(ctx):
@@ -51,7 +51,7 @@ async def map(ctx):
 @client.command(pass_context=True)
 async def my_character(ctx):
 	"""Sends the character picture of the user that has sent the command."""
-	pic_dir = "characters/"+str(ctx.message.author)+".png"
+	pic_dir = f"characters/{str(ctx.message.author)}.png"
 	await client.send_file(ctx.message.channel, pic_dir)
 
 @client.command(pass_context=True)
@@ -61,7 +61,8 @@ async def character(ctx, user):
 	await client.say("Still working on this command.")
 
 @client.command(pass_context=True)
-async def clean(ctx):
-	""" Cleans every bot message from the channel. """
+async def clear(ctx):
+	""" Clears every bot message from the channel. """
 	await client.purge_from(ctx.message.channel, limit=200, check=lambda m: (m.author == client.user) or m.content.startswith(prefix))
+
 client.run('NDE1OTc4MzMwMzMyODU2MzIw.DW9xmA.DHxYPGsU9FEScFTVkF_zEKLtwPM')
