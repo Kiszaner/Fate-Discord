@@ -6,6 +6,7 @@ import platform
 import pandas as pd
 import random
 import numpy as np
+from os import path
 
 prefix="!"
 client = Bot(description="Fate bot for discord.", command_prefix=prefix, pm_help = False)
@@ -51,9 +52,12 @@ async def map(ctx):
 @client.command(pass_context=True)
 async def my_character(ctx):
 	"""Sends the character picture of the user that has sent the command."""
-	pic_dir = f"characters/{str(ctx.message.author)}.png"
-	await client.send_file(ctx.message.channel, pic_dir)
-
+    pic_dir = f"characters/{str(ctx.message.author)}.png"
+    if path.isfile(pic_dir):
+        await client.send_file(ctx.message.channel, pic_dir)
+    else:
+        await client.say("character not found.")
+        
 @client.command(pass_context=True)
 async def character(ctx, user):
 	"""Sends the character picture of the user specified. (To obtain the user identifier
