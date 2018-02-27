@@ -50,7 +50,7 @@ async def map(ctx):
 @client.command(pass_context=True)
 async def my_character(ctx):
 	"""Envía la imagen del personaje del usuario que envía el comando."""
-	pic_dir = str(ctx.message.author)+".png"
+	pic_dir = "characters/"+str(ctx.message.author)+".png"
 	await client.send_file(ctx.message.channel, pic_dir)
 
 @client.command(pass_context=True)
