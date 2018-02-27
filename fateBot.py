@@ -7,7 +7,7 @@ import pandas as pd
 import random
 import numpy as np
 
-client = Bot(description="Fate bot for discord. Made by SowlJBA", command_prefix="!", pm_help = False)
+client = Bot(description="Fate bot for discord.", command_prefix="!", pm_help = False)
 
 def calc_dices(n):
     results = list(np.random.choice(["+","-"," "],n))
