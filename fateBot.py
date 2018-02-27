@@ -7,7 +7,8 @@ import pandas as pd
 import random
 import numpy as np
 
-client = Bot(description="Fate bot for discord.", command_prefix="!", pm_help = False)
+prefix="!"
+client = Bot(description="Fate bot for discord. Made by SowlJBA", command_prefix=prefix, pm_help = False)
 
 def calc_dices(n):
     results = list(np.random.choice(["+","-"," "],n))
@@ -59,4 +60,9 @@ async def character(ctx, user):
 	utiliza el identificador que aparece cuando lanza un dado)"""
 	await client.say("Still working on this command.")
 
+@client.command(pass_context=True)
+async def clean(ctx):
+	""" Cleans every bot message from the channel. """
+	await client.purge_from(ctx.message.channel, limit=200, check=lambda m: m.author == client.user)
+	await client.purge_from(ctx.message.channel, limit=200, check=lambda m: m.content.startswith(prefix))
 client.run('NDE1OTc4MzMwMzMyODU2MzIw.DW9xmA.DHxYPGsU9FEScFTVkF_zEKLtwPM')
