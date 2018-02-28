@@ -1,4 +1,7 @@
 # Fate-Discord
+
+![PythonVer](https://img.shields.io/badge/PythonVer-3.6-blue.svg)
+
 Bot that provides the necessary tools to play the role-playing-game Fate.
 
 
