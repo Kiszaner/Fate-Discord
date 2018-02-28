@@ -1,12 +1,13 @@
 import discord
 import asyncio
-from discord.ext.commands import Bot
-from discord.ext import commands
 import platform
 import pandas as pd
 import random
 import numpy as np
+import config.config as cfg
 from os import path
+from discord.ext.commands import Bot
+from discord.ext import commands
 
 prefix="!"
 client = Bot(description="Fate bot for discord.", command_prefix=prefix, pm_help = False)
@@ -69,4 +70,4 @@ async def clear(ctx):
 	""" Clears every bot message from the channel. """
 	await client.purge_from(ctx.message.channel, limit=200, check=lambda m: (m.author == client.user) or m.content.startswith(prefix))
 
-client.run('NDE1OTc4MzMwMzMyODU2MzIw.DW9xmA.DHxYPGsU9FEScFTVkF_zEKLtwPM')
+client.run(cfg.TOKEN)
