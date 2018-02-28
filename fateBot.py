@@ -75,4 +75,29 @@ async def clear(ctx):
 	""" Clears every bot message from the channel. """
 	await client.purge_from(ctx.message.channel, limit=200, check=lambda m: (m.author == client.user) or m.content.startswith(prefix))
 
+@client.command(pass_context=True)
+async def muteall(ctx):
+	""" Mutes every player but the DJ. """
+	if not has_role(ctx.message.author, "DJ"):
+		await client.say("You need to be DJ to run this command.")
+	else:
+		for member in ctx.message.author.voice.voice_channel.voice_members:
+			if not has_role(ctx.message.author, "DJ"):
+				await client.server_voice_state(member, mute=True)
+
+@client.command(pass_context=True)
+async def unmuteall(ctx):
+	""" Umutes every player in the channel. """
+	if not has_role(ctx.message.author, "DJ"):
+		await client.say("You need to be DJ to run this command.")
+	else:
+		for member in ctx.message.author.voice.voice_channel.voice_members:
+			await client.server_voice_state(member, mute=False)
+
+def has_role(member, ref_role):
+	for role in member.roles:
+		if role.name == ref_role:
+			return True
+	return False
+
 client.run(cfg.TOKEN)
