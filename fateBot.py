@@ -53,7 +53,10 @@ async def map(ctx):
 @client.command(pass_context=True)
 async def me(ctx):
     """Sends the character picture of the user that has sent the command."""
-    pic_dir = f"./characters/{str(ctx.message.author)}.png"
+    authorComplete = str(ctx.message.author)
+    authorSimple = authorComplete.partition("#")[0]
+    pic_dir = f"./characters/{authorSimple}.png"
+    #pic_dir = f"./characters/{str(ctx.message.author)}.png"
     if path.isfile(pic_dir):
         await client.send_file(ctx.message.channel, pic_dir)
     else:
@@ -61,9 +64,7 @@ async def me(ctx):
 
 @client.command(pass_context=True)
 async def character(ctx, user):
-	"""Sends the character picture of the user specified. To obtain the user identifier
-	look at the message sent when he uses the dice command. Or you can just right-click on his
-	icon and click on profile (it should look like: Paco#1917"""
+	"""Sends the character picture of the user specified."""
 	pic_dir = f"./characters/{user}.png"
 	if path.isfile(pic_dir):
 		await client.send_file(ctx.message.channel, pic_dir)
@@ -81,9 +82,12 @@ async def muteall(ctx):
 	if not has_role(ctx.message.author, "DJ"):
 		await client.say("You need to be DJ to run this command.")
 	else:
-		for member in ctx.message.author.voice.voice_channel.voice_members:
-			if not has_role(ctx.message.author, "DJ"):
-				await client.server_voice_state(member, mute=True)
+		chan_mem = ctx.message.author.voice.voice_channel.voice_members
+		for mem in chan_mem:
+			if not has_role(mem, "DJ"):
+				await client.say("People muted:")
+				await client.say(mem)
+				await client.server_voice_state(mem, mute=True)
 
 @client.command(pass_context=True)
 async def unmuteall(ctx):
@@ -91,13 +95,30 @@ async def unmuteall(ctx):
 	if not has_role(ctx.message.author, "DJ"):
 		await client.say("You need to be DJ to run this command.")
 	else:
-		for member in ctx.message.author.voice.voice_channel.voice_members:
-			await client.server_voice_state(member, mute=False)
+		chan_mem = ctx.message.author.voice.voice_channel.voice_members
+		for mem in chan_mem:
+			await client.say("People unmuted:")
+			await client.say(mem)
+			await client.server_voice_state(mem, mute=False)
+
+@client.command(pass_context=True)
+async def setpic(ctx):
+    """ Sets this player's picture """
+
+    #ToDo: save url in the json
+    if len(ctx.message.attachments) > 1:
+        await client.say("Please, send just one single file.")
+    else:
+    	for attachment in ctx.message.attachments:
+            pic_url = attachment["url"]
+            await client.say(pic_url)
 
 def has_role(member, ref_role):
 	for role in member.roles:
 		if role.name == ref_role:
 			return True
 	return False
+
+#def set_picture(url):
 
 client.run(cfg.TOKEN)
