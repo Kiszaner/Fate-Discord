@@ -9,6 +9,7 @@ from os import path
 from discord.ext.commands import Bot
 from discord.ext import commands
 
+
 prefix="!"
 client = Bot(description="Fate bot for discord.", command_prefix=prefix, pm_help = False)
 
@@ -18,15 +19,19 @@ def calc_dices(n):
     return results, total
 
 def dicesToEmojis(dices):
-	rt_emojis = []
-	for dice in dices:
-		if dice == "+":
-			rt_emojis.append("<:pluskey:415985383742898177>")
-		elif dice == "-":
-			rt_emojis.append("<:minuskey:415985384011464715>")
-		elif dice == " ":
-			rt_emojis.append("<:voidkey:415985887604899840>")
-	return ' '.join(rt_emojis)
+
+    rt_emojis = []
+    for dice in dices:
+        if dice == "+":
+            rt_emojis.append(':pluskey:')
+            #rt_emojis.append("<:pluskey:415985383742898177>")
+        elif dice == "-":
+            rt_emojis.append(':minuskey:')
+            #rt_emojis.append("<:minuskey:415985384011464715>")
+        elif dice == " ":
+            rt_emojis.append(':voidkey:')
+            #rt_emojis.append("<:voidkey:415985887604899840>")
+    return ' '.join(rt_emojis)
 
 @client.event
 async def on_ready():
@@ -40,7 +45,7 @@ async def dice(ctx, n_dices=4):
 	    await client.say(f"{str(ctx.message.author)} throws the dices and gets...")
 	    result = calc_dices(n_dices)
 	    emojis = dicesToEmojis(result[0])
-	    await client.say(f"Dices... {emojis}")
+	    await client.say(f"{emojis}")
 	    await client.say(f"Total result: {str(result[1])}")
 	else:
 		await client.say("Please enter an integer number of dices.")
@@ -78,13 +83,13 @@ async def clear(ctx):
 
 @client.command(pass_context=True)
 async def muteall(ctx):
-	""" Mutes every player but the DJ. """
-	if not has_role(ctx.message.author, "DJ"):
-		await client.say("You need to be DJ to run this command.")
+	""" Mutes every player but the GM. """
+	if not has_role(ctx.message.author, "GM"):
+		await client.say("You need to be GM to run this command.")
 	else:
 		chan_mem = ctx.message.author.voice.voice_channel.voice_members
 		for mem in chan_mem:
-			if not has_role(mem, "DJ"):
+			if not has_role(mem, "GM"):
 				await client.say("People muted:")
 				await client.say(mem)
 				await client.server_voice_state(mem, mute=True)
@@ -92,8 +97,8 @@ async def muteall(ctx):
 @client.command(pass_context=True)
 async def unmuteall(ctx):
 	""" Umutes every player in the channel. """
-	if not has_role(ctx.message.author, "DJ"):
-		await client.say("You need to be DJ to run this command.")
+	if not has_role(ctx.message.author, "GM"):
+		await client.say("You need to be GM to run this command.")
 	else:
 		chan_mem = ctx.message.author.voice.voice_channel.voice_members
 		for mem in chan_mem:
