@@ -23,14 +23,11 @@ def dicesToEmojis(dices):
     rt_emojis = []
     for dice in dices:
         if dice == "+":
-            rt_emojis.append(':pluskey:')
-            #rt_emojis.append("<:pluskey:415985383742898177>")
+            rt_emojis.append("<:pluskey:415985383742898177>")
         elif dice == "-":
-            rt_emojis.append(':minuskey:')
-            #rt_emojis.append("<:minuskey:415985384011464715>")
+            rt_emojis.append("<:minuskey:415985384011464715>")
         elif dice == " ":
-            rt_emojis.append(':voidkey:')
-            #rt_emojis.append("<:voidkey:415985887604899840>")
+            rt_emojis.append("<:voidkey:415985887604899840>")
     return ' '.join(rt_emojis)
 
 @client.event
