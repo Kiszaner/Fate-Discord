@@ -8,6 +8,8 @@ import os.path
 #                        ]
 #         }
 
+# Add JSON_FILE_NAME = "FILE_OF_CHARACTERS.json" to config/config.cfg
+# file characters_test.json saved as an example of use/format of json
 JSON_FILE_NAME = "characters_test.json"
 defaultData = {"Characters": [{"PC": []}, {"NPC": []}]}
 
@@ -15,7 +17,7 @@ defaultData = {"Characters": [{"PC": []}, {"NPC": []}]}
 def checkFile():
     if not os.path.isfile(JSON_FILE_NAME):
         print("File didn't exist, creating...")
-        with open("characters_test.json", "w") as f:
+        with open(JSON_FILE_NAME, "w") as f:
             json.dump(defaultData, f, indent=4)
     else:
         print("File already exists")

@@ -1,0 +1,54 @@
+{
+    "Characters": [
+        {
+            "PC": [
+                {
+                    "ID": "Jotas",
+                    "Name": "Waldrich",
+                    "Genre": "Male",
+                    "Species": "Human"
+                },
+                {
+                    "ID": "Jose",
+                    "Name": "Umgi'Got",
+                    "Genre": "Female",
+                    "Species": "Dwarf"
+                },
+                {
+                    "ID": "Mede",
+                    "Name": "Lo'Gosh",
+                    "Genre": "Male",
+                    "Species": "Semi-Ork"
+                },
+                {
+                    "ID": "Cas",
+                    "Name": "Igni Rerik",
+                    "Genre": "Male",
+                    "Species": "Draken"
+                }
+            ]
+        },
+        {
+            "NPC": [
+                {
+                    "ID": "Heber1",
+                    "Name": "Malo1",
+                    "Genre": "Male",
+                    "Species": "Human"
+                },
+                {
+                    "ID": "Heber2",
+                    "Name": "Malo2",
+                    "Genre": "Female",
+                    "Species": "Ork"
+                },
+                {
+                    "ID": "Heber3",
+                    "Name": "Malo3",
+                    "Genre": "Male",
+                    "Species": "Birdman"
+                }
+            ]
+        }
+    ]
+}
